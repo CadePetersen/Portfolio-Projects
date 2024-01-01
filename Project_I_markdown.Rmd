@@ -1,0 +1,82 @@
+---
+title: "HW 1 - Extra Credit"
+author: "Cade H. Petersen"
+date: "2022-09-28"
+output: pdf_document
+---
+
+# 1. Install the epitools package, the load the epitools library. Then read in the dataset oswego.
+
+```{r Problem-1, include=TRUE, echo=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+library(epitools)
+library(readr)
+
+   ### Importing the data set from my personal drive using readr.
+homework_1_oswego <- read_csv("C:/Users/cadep/Desktop/R Files/Survey Files/R Files/Homework/homework_1_oswego.csv")
+
+View(homework_1_oswego)
+```
+
+# 2. Create a series of fourfold plots for each food type and ill (our outcome) to discover the food that made everyone sick.
+
+```{r Problem-2, include=TRUE, echo=TRUE}
+# 2. Create a series of fourfold plots for each food type and ill (our outcome)
+#  to discover the food that made everyone sick.
+
+df <- homework_1_oswego  
+   ## Made a copy in case I mess up..
+colnames(df)
+   # We have 11 "food types". I am not considering drinks as food types, 
+     # I apologize if this is misinterpreted!
+str(df) 
+   ### Mmmk, all are characters, which makes sense as this is binomial type of
+    ### problem..
+
+
+fourfoldplot(with(df, table(ill, baked.ham))) 
+   ## 29 yes, 17 no for who ate it.
+
+fourfoldplot(with(df, table(ill, spinach)))
+   ## 26 yes, 17 no for who ate it.
+
+fourfoldplot(with(df, table(ill, mashed.potato)))
+   ## 23 yes, 14 no for who ate it.
+
+fourfoldplot(with(df, table(ill, cabbage.salad))) 
+   ## 18 yes, 10 no for who ate it.
+
+fourfoldplot(with(df, table(ill, jello))) 
+   ## 16 yes, 7 no for who ate it.
+
+fourfoldplot(with(df, table(ill, rolls))) 
+   ## 21 yes, 16 no for who ate it.
+
+fourfoldplot(with(df, table(ill, brown.bread)))
+   ## 18 yes, 9 no for who ate it.
+
+fourfoldplot(with(df, table(ill, cakes))) 
+   ## 27 yes, 13 no for who ate it.
+
+fourfoldplot(with(df, table(ill, vanilla.ice.cream)))
+   ## 43 yes, 11 no for who ate it.
+ #  Who can resist vanilla ice cream... based on the plots, this is our culprit!
+
+fourfoldplot(with(df, table(ill, chocolate.ice.cream))) 
+   ## 25 yes, 22 no for who ate it.
+
+fourfoldplot(with(df, table(ill, fruit.salad))) 
+   ## 4 yes, 2 no for who ate it
+   ### Let's be real, are we surprised this many people didn't eat this??
+```
+
+# 3. When you find the culprit run a chi.square test on with ill as your outcome.
+
+```{r Problem-3, echo=TRUE,include=TRUE}
+chisq.test(df$ill, df$vanilla.ice.cream)
+   ## Well, we can say that since our p-value > .05 that we fail to reject the 
+     ## null hypothesis. Where our H0: Vanilla ice cream is suspected to have
+     ## caused the food poisoning. 
+```
+
+Note that the `echo = TRUE` parameter was added to the code chunk to not-prevent printing of the R code that generated the plot for the purpose of grading.
