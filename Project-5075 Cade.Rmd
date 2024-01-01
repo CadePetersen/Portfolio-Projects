@@ -1,0 +1,52 @@
+---
+title: "Time Series Project"
+author: "Cade H. Petersen"
+date: "2023-02-02"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r timeseries}
+AR_i <- arima.sim(model = list(ar = 0), n = 50)
+plot.ts(cbind(AR_i), main="AR Model Simulated Data i")
+#Although varying, the time tends to return towards 0 in time = 10 intervals frequently.
+
+AR_ii <- arima.sim(model = list(ar = 0), n = 50, rand.gen = rnorm)
+plot.ts(cbind(AR_ii), main="AR Model Simulated Data ii")
+#Although varying, the time tends to return towards 0 in time = 10 intervals frequently.
+
+AR_iii <- arima.sim(model = list(ar = 0), n = 50, sd = 5)
+plot.ts(cbind(AR_iii), main="AR Model Simulated Data iii")
+#Although varying, the time tends to return towards 0 in time = 10 intervals less frequently.
+
+AR_iv <- arima.sim(model = list(ar = .1), n = 50)
+plot.ts(cbind(AR_iv), main="AR Model Simulated Data iv")
+#Although varying, the time tends to return towards 0 in time = 10 intervals sparsely.
+
+AR_v <- arima.sim(model = list(ar = .5), n = 50)
+plot.ts(cbind(AR_v), main="AR Model Simulated Data v")
+#Although varying, the time tends to return towards 0 in time = 10 intervals infrequently.
+
+AR_vi <- arima.sim(model = list(ar = .9), n = 50)
+plot.ts(cbind(AR_vi), main="AR Model Simulated Data vi")
+#Although varying, the time tends to return towards 0 in time = 10 intervals infrequently.
+
+AR_vii <- arima.sim(model = list(ar = 0), n = 50, sd = 1)
+plot.ts(cbind(AR_vii), main="AR Model Simulated Data vii")
+#Although varying, the time tends to return towards 0 in time = 10 intervals frequently.
+
+AR_viii <- arima.sim(model = list(ar = 0), n = 50, sd = -1)
+#This is similar to 1, rather the deviations are below the x-axis instead.
+
+AR_ix <- arima.sim(model = list(ar = 0), n = 50, sd = 1.2)
+plot.ts(cbind(AR_ix), main="AR Model Simulated Data ix")
+#Although varying, the time tends to return towards 0 in time = 10 intervals less frequently.
+
+AR_x <- arima.sim(model = list(ar = 0), n = 50, sd = -1.2)
+#This is similar to 1.2, rather the deviations are below the x-axis instead.
+
+```
+
